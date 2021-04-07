@@ -1,0 +1,6 @@
+export const THEME = {
+  MAIN_COLOR: "#008080",
+  DANGER_COLOR: "#D81B60",
+  SECOND_HEADER_COLOR: "#E34E27",
+  WHITE_COLOR: "#FFF",
+};
