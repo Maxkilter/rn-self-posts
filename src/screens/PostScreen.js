@@ -8,12 +8,11 @@ import {
   ScrollView,
   Alert,
 } from "react-native";
-import { DATA } from "../data";
 import { THEME } from "../theme";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { AppHeaderIcon } from "../components";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleBooked } from "../store/actions/postActions";
+import { removePost, toggleBooked } from "../store/actions/postActions";
 
 export const PostScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -49,14 +48,23 @@ export const PostScreen = ({ navigation }) => {
         {
           text: "Ok",
           style: "ok",
-          onPress: () => {},
+          onPress() {
+            navigation.navigate("Main");
+            dispatch(removePost(postId));
+          },
         },
       ],
       { cancelable: false }
     );
   };
 
-  const post = DATA.find((p) => p.id === postId);
+  const post = useSelector((state) =>
+    state.posts.allPosts.find((p) => p.id === postId)
+  );
+
+  if (!post) {
+    return null;
+  }
 
   return (
     <ScrollView>
