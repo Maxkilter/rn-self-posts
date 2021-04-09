@@ -1,8 +1,9 @@
 {
   "expo": {
     "name": "Self Blog",
+    "privacy": "public",
     "slug": "react-native-self-posts",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/rn-icon.png",
     "splash": {
@@ -17,9 +18,14 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.boudmax-self-blog-rn-app",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
+      "package": "com.boudmax_self_blog_rn_app",
+      "versionCode": 1,
+      "permissions": ["CAMERA", "WRITE_EXTERNAL_STORAGE"],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
