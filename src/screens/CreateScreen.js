@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   View,
   StyleSheet,
   Text,
   TextInput,
-  Image,
   Button,
   ScrollView,
   TouchableWithoutFeedback,
@@ -14,9 +13,12 @@ import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { AppHeaderIcon } from "../components";
 import { useDispatch } from "react-redux";
 import { createPost } from "../store/actions/postActions";
+import { PhotoPicker } from "../components/PhotoPicker";
 
 export const CreateScreen = ({ navigation }) => {
   const [text, setText] = useState("");
+  const [imageUri, setImageUri] = useState(null);
+
   const dispatch = useDispatch();
 
   const onSaveHandler = () => {
@@ -26,8 +28,7 @@ export const CreateScreen = ({ navigation }) => {
         date: new Date().toJSON(),
         text,
         booked: false,
-        img:
-          "https://cdn.londonandpartners.com/visit/general-london/areas/river/76709-640x360-houses-of-parliament-and-london-eye-on-thames-from-above-640.jpg",
+        img: imageUri,
       })
     );
   };
@@ -44,14 +45,14 @@ export const CreateScreen = ({ navigation }) => {
             onChangeText={setText}
             multiline
           />
-          <Image
-            style={styles.img}
-            source={{
-              uri:
-                "https://cdn.londonandpartners.com/visit/general-london/areas/river/76709-640x360-houses-of-parliament-and-london-eye-on-thames-from-above-640.jpg",
-            }}
-          />
-          <Button title="Crate post" onPress={onSaveHandler} />
+          <PhotoPicker setImageUri={setImageUri} imageUri={imageUri} />
+          <View style={styles.btn}>
+            <Button
+              title="Crate post"
+              onPress={onSaveHandler}
+              disabled={!text || !imageUri}
+            />
+          </View>
         </View>
       </TouchableWithoutFeedback>
     </ScrollView>
@@ -89,5 +90,8 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 200,
     marginBottom: 8,
+  },
+  btn: {
+    marginTop: 8,
   },
 });
