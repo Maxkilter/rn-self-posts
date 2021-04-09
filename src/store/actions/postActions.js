@@ -12,18 +12,22 @@ export const loadPosts = () => {
   };
 };
 
-export const toggleBooked = (id) => {
-  return {
+export const toggleBooked = (post) => async (dispatch) => {
+  await DB.updatePost(post);
+
+  return dispatch({
     type: TOGGLE_BOOKED,
-    payload: id,
-  };
+    payload: post.id,
+  });
 };
 
-export const removePost = (id) => {
-  return {
+export const removePost = (id) => async (dispatch) => {
+  await DB.deletePost(id);
+
+  return dispatch({
     type: REMOVE_POST,
     payload: id,
-  };
+  });
 };
 
 export const createPost = (post) => async (dispatch) => {

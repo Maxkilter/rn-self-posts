@@ -22,7 +22,7 @@ export const PostScreen = ({ navigation }) => {
     state.posts.bookedPosts.some((post) => post.id === postId)
   );
 
-  const toggleHandler = useCallback(() => dispatch(toggleBooked(postId)), [
+  const toggleHandler = useCallback(() => dispatch(toggleBooked(post)), [
     dispatch,
     postId,
   ]);

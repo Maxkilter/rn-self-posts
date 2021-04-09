@@ -1,8 +1,15 @@
 import React, { useEffect } from "react";
-import { View, StyleSheet, FlatList, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  Text,
+  ActivityIndicator,
+} from "react-native";
 import { Post } from "./Post";
 import { useDispatch, useSelector } from "react-redux";
 import { loadPosts } from "../store/actions/postActions";
+import { THEME } from "../theme";
 
 export const PostList = ({ navigation, isBooked }) => {
   const dispatch = useDispatch();
@@ -13,6 +20,7 @@ export const PostList = ({ navigation, isBooked }) => {
 
   const allPosts = useSelector((state) => state.posts.allPosts);
   const bookedPosts = useSelector((state) => state.posts.bookedPosts);
+  const isLoading = useSelector((state) => state.posts.isLoading);
   const isNoPosts = isBooked ? !bookedPosts.length : !allPosts.length;
 
   const goToPost = (post) => {
@@ -22,6 +30,14 @@ export const PostList = ({ navigation, isBooked }) => {
       booked: post.booked,
     });
   };
+
+  if (isLoading) {
+    return (
+      <View style={styles.loader}>
+        <ActivityIndicator color={THEME.MAIN_COLOR} size="large" />
+      </View>
+    );
+  }
 
   if (isNoPosts) {
     return (
@@ -53,5 +69,10 @@ const styles = StyleSheet.create({
     fontFamily: "open-regular",
     fontSize: 20,
     textAlign: "center",
+  },
+  loader: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
