@@ -1,4 +1,4 @@
-import { AppLoading } from "expo";
+import AppLoading from "expo-app-loading";
 import React, { useState } from "react";
 import bootstrap from "./src/bootstrap";
 import { AppNavigation } from "./src/navigation";
